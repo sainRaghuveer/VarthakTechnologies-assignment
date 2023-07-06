@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 const bcrypt = require("bcrypt");
-import jwt from 'jsonwebtoken';
+import dotenv from "dotenv";
+dotenv.config() as string;
+import jwt, { Secret } from 'jsonwebtoken';
 import UserModel from '../models/user.model';
 
 
@@ -45,6 +47,34 @@ export const signup = async (req: Request, res: Response) => {
     }
 };
 
-export const login = (req: Request, res: Response) => {
-    res.send("user logged in");
+export const login = async (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await UserModel.findOne({ email });
+        if (!user) {
+            res.status(400).send({ "msg": "user don't exist please register first" });
+        } else {
+            bcrypt.compare(password, user.password, async (err: Error | undefined, result: boolean) => {
+                if (result) {
+
+                    var token = jwt.sign({ userExist: user._id }, "varthak", { expiresIn: "3h" });
+                    res.status(200).send({
+                        "msg": "user logged in successful",
+                        "user": {
+                            _id: user._id,
+                            name: user.name,
+                            email: user.email,
+                            mobileNumber: user.mobileNumber,
+                            role: user.role,
+                        }
+                    })
+                } else {
+                    res.status(400).send({ "msg": "Wrong password or email" })
+                }
+            });
+        }
+    } catch (error: any) {
+        res.status(500).send({ "msg": "Something went wrong", "error": error.message });
+    }
 };
