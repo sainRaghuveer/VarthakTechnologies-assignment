@@ -27,16 +27,19 @@ const loggingMiddleware: express.Handler = (req:Request, res:Response, next:Next
     next();
 };
 
-
+//Creating app using express
 const app = express();
 
 
+//Default route
 app.get("/", (req, res) => {
     res.send(`<div style="text-align:center; color:blue; font-size:25px; ">Welcome to the VARTHAK backend ...!🪄🪄🪄🪄</div>`);
 });
 
-
+//Cross origin
 app.use(cors());
+
+//Body parser
 app.use(express.json());
 
 //logger middleware
@@ -46,9 +49,10 @@ app.use(loggingMiddleware);
 app.use("/", userRouter);
 app.use("/", bookRouter)
 
-
+//PORT
 const PORT = process.env.PORT || 5000 as number;
 
+//Server    
 app.listen(PORT, async () => {
     try {
         await connectDB();
