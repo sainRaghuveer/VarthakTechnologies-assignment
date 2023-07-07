@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-const bcrypt = require("bcrypt");
+import bcrypt from 'bcrypt';
 import dotenv from "dotenv";
-dotenv.config() as string;
-import jwt, { Secret } from 'jsonwebtoken';
+dotenv.config();
+import jwt from 'jsonwebtoken';
 import UserModel from '../models/user.model';
 
 
@@ -58,7 +58,7 @@ export const login = async (req: Request, res: Response) => {
             bcrypt.compare(password, user.password, async (err: Error | undefined, result: boolean) => {
                 if (result) {
 
-                    var token = jwt.sign({ userExist: user._id }, "varthak", { expiresIn: "3h" });
+                    var token = jwt.sign({ userId: user._id, role: [user.role] }, "varthak", { expiresIn: "3h" });
                     res.status(200).send({
                         "msg": "user logged in successful",
                         "user": {
@@ -67,6 +67,7 @@ export const login = async (req: Request, res: Response) => {
                             email: user.email,
                             mobileNumber: user.mobileNumber,
                             role: user.role,
+                            token:token
                         }
                     })
                 } else {
