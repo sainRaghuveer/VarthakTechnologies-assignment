@@ -1,3 +1,7 @@
 {"level":"info","message":"[GET] /books/filter?old=1","timestamp":"2023-07-07T09:04:43.913Z"}
 {"level":"info","message":"[GET] /books/filter?old=1","timestamp":"2023-07-07T09:04:50.207Z"}
 {"level":"info","message":"[GET] /favicon.ico","timestamp":"2023-07-07T09:09:01.987Z"}
+{"level":"info","message":"[GET] /books","timestamp":"2023-07-07T09:14:37.234Z"}
+{"level":"info","message":"[GET] /books/getall","timestamp":"2023-07-07T09:14:52.864Z"}
+{"level":"info","message":"[GET] /books/all","timestamp":"2023-07-07T09:14:58.993Z"}
+{"level":"info","message":"[GET] /books/all","timestamp":"2023-07-07T10:23:51.858Z"}
