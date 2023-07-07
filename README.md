@@ -20,11 +20,11 @@ npm run start
 
 npm run server
 
-node index.js
+node index.ts
 
 nodemon start
 
-nodemon index.js
+nodemon index.ts
 ```
 
 Note : You can use any of them 
