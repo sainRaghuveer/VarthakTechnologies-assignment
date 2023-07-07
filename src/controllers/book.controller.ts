@@ -16,7 +16,7 @@ export const createBook = async (req: Request, res: Response) => {
     const book = await bookModel.create({ title, author, createdBy });
     res.status(201).json(book);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create book.' });
+    res.status(500).json({ message: 'Failed to create book.', error:error });
   }
 };
 
@@ -36,7 +36,7 @@ export const viewBooks = async (req: Request, res: Response) => {
 
     res.status(200).json(books);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to retrieve books.' });
+    res.status(500).json({ message: 'Failed to retrieve books.',error:error });
   }
 };
 
@@ -59,7 +59,7 @@ export const filterBooks = async (req: Request, res: Response) => {
     }
 
     res.status(200).json(books);
-  } catch (error:any) {
-    res.status(500).json({ message: 'Failed to filter books.', error:error.message });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to filter books.', error:error });
   }
 };
